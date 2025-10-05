@@ -92,7 +92,7 @@
             "properties": {
                 "codeHighlighter.defaultColor": {
                     "type": "string",
-                    "default": "#3B82F650",
+                    "default": "#00FFAA50",
                     "description": "Default code highlight color"
                 },
                 "codeHighlighter.saveHighlights": {
@@ -116,52 +116,52 @@
                         {
                             "name": "Model Layer",
                             "description": "Data models, entities, DTOs",
-                            "value": "#3B82F650"
+                            "value": "#00FFAA50"
                         },
                         {
                             "name": "View Layer",
                             "description": "UI components, templates, views",
-                            "value": "#EF444450"
+                            "value": "#FF00FF50"
                         },
                         {
                             "name": "Controller Layer",
                             "description": "Request handlers, routing controllers",
-                            "value": "#10B98150"
+                            "value": "#00FFFF50"
                         },
                         {
                             "name": "Service Layer",
                             "description": "Business logic, service classes",
-                            "value": "#F59E0B50"
+                            "value": "#FFFF0050"
                         },
                         {
                             "name": "Data Access",
                             "description": "Database queries, repositories, ORM",
-                            "value": "#8B5CF650"
+                            "value": "#FF00AA50"
                         },
                         {
                             "name": "API Routes",
                             "description": "API endpoints, route definitions",
-                            "value": "#06B6D450"
+                            "value": "#00FF0050"
                         },
                         {
                             "name": "Utilities",
                             "description": "Helper functions, utilities",
-                            "value": "#EAB30850"
+                            "value": "#FF550050"
                         },
                         {
                             "name": "Configuration",
                             "description": "Config files, settings, constants",
-                            "value": "#6B728050"
+                            "value": "#AA00FF50"
                         },
                         {
                             "name": "Authentication",
                             "description": "Auth logic, JWT, sessions, security",
-                            "value": "#DC262650"
+                            "value": "#FF222250"
                         },
                         {
                             "name": "Testing",
                             "description": "Test cases, testing code",
-                            "value": "#22C55E50"
+                            "value": "#22FF2250"
                         }
                     ],
                     "description": "Customize code highlights with architecture-focused names and descriptions. Add two digits at the end for transparency (e.g., 50 for 31% opacity).",

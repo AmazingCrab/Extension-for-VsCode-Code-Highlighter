@@ -53,16 +53,16 @@ let statusBarItem;
  * Each color includes name, description, and hex value with transparency
  */
 const defaultColors = [
-    { name: 'Model Layer', description: 'Data models, entities, DTOs', value: '#3B82F650' },
-    { name: 'View Layer', description: 'UI components, templates, views', value: '#EF444450' },
-    { name: 'Controller Layer', description: 'Request handlers, routing controllers', value: '#10B98150' },
-    { name: 'Service Layer', description: 'Business logic, service classes', value: '#F59E0B50' },
-    { name: 'Data Access', description: 'Database queries, repositories, ORM', value: '#8B5CF650' },
-    { name: 'API Routes', description: 'API endpoints, route definitions', value: '#06B6D450' },
-    { name: 'Utilities', description: 'Helper functions, utilities', value: '#EAB30850' },
-    { name: 'Configuration', description: 'Config files, settings, constants', value: '#6B728050' },
-    { name: 'Authentication', description: 'Auth logic, JWT, sessions, security', value: '#DC262650' },
-    { name: 'Testing', description: 'Test cases, testing code', value: '#22C55E50' }
+    { name: 'Model Layer', description: 'Data models, entities, DTOs', value: '#00FFAA50' }, // Verde fosforescente
+    { name: 'View Layer', description: 'UI components, templates, views', value: '#FF00FF50' }, // Magenta neón
+    { name: 'Controller Layer', description: 'Request handlers, routing controllers', value: '#00FFFF50' }, // Cian brillante
+    { name: 'Service Layer', description: 'Business logic, service classes', value: '#FFFF0050' }, // Amarillo neón
+    { name: 'Data Access', description: 'Database queries, repositories, ORM', value: '#FF00AA50' }, // Rosa fluorescente
+    { name: 'API Routes', description: 'API endpoints, route definitions', value: '#00FF0050' }, // Verde lima
+    { name: 'Utilities', description: 'Helper functions, utilities', value: '#FF550050' }, // Naranja eléctrico
+    { name: 'Configuration', description: 'Config files, settings, constants', value: '#AA00FF50' }, // Púrpura vibrante
+    { name: 'Authentication', description: 'Auth logic, JWT, sessions, security', value: '#FF222250' }, // Rojo neón
+    { name: 'Testing', description: 'Test cases, testing code', value: '#22FF2250' } // Verde brillante
 ];
 
 // ============================================================================
@@ -107,6 +107,53 @@ function getColorMetadata(colorValue) {
     const availableColors = getAvailableColors();
     const color = availableColors.find(c => c.value === colorValue);
     return color ? { name: color.name, description: color.description || '' } : null;
+}
+
+/**
+ * Creates a darker version of a color for the border
+ * @param {string} color - Hex color value
+ * @returns {string} Darker hex color value
+ */
+function getDarkerBorderColor(color) {
+    // Remove transparency if present
+    const baseColor = color.length === 9 ? color.substring(0, 7) : color;
+    
+    // Simple darkening by reducing RGB values
+    if (baseColor === '#00FFAA') return '#00CC88';
+    if (baseColor === '#FF00FF') return '#CC00CC';
+    if (baseColor === '#00FFFF') return '#00CCCC';
+    if (baseColor === '#FFFF00') return '#CCCC00';
+    if (baseColor === '#FF00AA') return '#CC0088';
+    if (baseColor === '#00FF00') return '#00CC00';
+    if (baseColor === '#FF5500') return '#CC4400';
+    if (baseColor === '#AA00FF') return '#8800CC';
+    if (baseColor === '#FF2222') return '#CC1A1A';
+    if (baseColor === '#22FF22') return '#1ACC1A';
+    
+    // Default fallback - darken by 20%
+    return baseColor;
+}
+
+/**
+ * Creates decoration type for a given color
+ * @param {string} color - Hex color value
+ * @returns {vscode.TextEditorDecorationType} Decoration type
+ */
+function createDecorationType(color) {
+    const borderColor = getDarkerBorderColor(color);
+    
+    return vscode.window.createTextEditorDecorationType({
+        backgroundColor: color,
+        borderRadius: '4px',
+        border: `2px solid ${borderColor}`,
+        borderStyle: 'solid',
+        borderWidth: '2px',
+        overviewRulerColor: color,
+        overviewRulerLane: vscode.OverviewRulerLane.Left,
+        // Estas propiedades ayudan a que el borde se aplique al bloque completo
+        isWholeLine: false,
+        rangeBehavior: vscode.DecorationRangeBehavior.ClosedClosed
+    });
 }
 
 // ============================================================================
@@ -186,12 +233,13 @@ function activate(ctx) {
      * Restore highlights when opening a document
      */
     context.subscriptions.push(
-        vscode.workspace.onDidOpenTextDocument(document => {
+        vscode.workspace.onDidOpenTextDocument(async (document) => {
             const editor = vscode.window.activeTextEditor;
             if (editor && editor.document === document && colorsEnabled) {
+                // Pequeño delay para asegurar que el editor esté completamente listo
                 setTimeout(() => {
                     restoreHighlights(editor);
-                }, 100);
+                }, 200);
             }
         })
     );
@@ -248,6 +296,7 @@ function updateStatusBarButton() {
 async function initializeHighlights() {
     try {
         await loadSavedHighlights();
+        // Aplicar highlights a todos los editores visibles
         if (colorsEnabled) {
             vscode.window.visibleTextEditors.forEach(editor => {
                 applyHighlights(editor);
@@ -440,16 +489,11 @@ function addHighlight(editor, selection, color, colorName, colorDescription) {
     // Create or get decoration type for this color
     let decorationType = decorationTypes.get(color);
     if (!decorationType) {
-        decorationType = vscode.window.createTextEditorDecorationType({
-            backgroundColor: color,
-            borderRadius: '2px',
-            border: 'none',
-            borderLeft: `4px solid ${color}`
-        });
+        decorationType = createDecorationType(color);
         decorationTypes.set(color, decorationType);
     }
 
-    // Create decoration object
+    // Create decoration object - usar el rango exacto de la selección
     const range = new vscode.Range(selection.start, selection.end);
     const hoverText = colorDescription ? `${colorName}: ${colorDescription}` : colorName;
     const decoration = {
@@ -469,8 +513,13 @@ function addHighlight(editor, selection, color, colorName, colorDescription) {
         documentHighlights.set(color, []);
     }
 
+    // Añadir la nueva decoración
     documentHighlights.get(color).push(decoration);
+    
+    // Aplicar inmediatamente los highlights visualmente
     applyHighlights(editor);
+    
+    // Guardar en el archivo (esto hace que persistan sin necesidad de guardar manualmente)
     saveHighlights();
 }
 
@@ -485,31 +534,25 @@ function applyHighlights(editor) {
     const uri = editor.document.uri.toString();
     const documentHighlights = highlightDecorations.get(uri);
     
-    // Clear all decorations if no highlights exist
-    if (!documentHighlights || documentHighlights.size === 0) {
-        decorationTypes.forEach((decorationType) => {
-            editor.setDecorations(decorationType, []);
-        });
-        return;
-    }
-
-    // Clear existing decorations
+    // Primero limpiar todas las decoraciones existentes
     decorationTypes.forEach((decorationType) => {
         editor.setDecorations(decorationType, []);
     });
 
-    // Apply highlights by color
+    // Si no hay highlights para este documento, terminar aquí
+    if (!documentHighlights || documentHighlights.size === 0) {
+        return;
+    }
+
+    // Aplicar highlights por color
     documentHighlights.forEach((decorations, color) => {
         let decorationType = decorationTypes.get(color);
         if (!decorationType) {
-            decorationType = vscode.window.createTextEditorDecorationType({
-                backgroundColor: color,
-                borderRadius: '2px',
-                border: 'none',
-                borderLeft: `4px solid ${color}`
-            });
+            decorationType = createDecorationType(color);
             decorationTypes.set(color, decorationType);
         }
+        
+        // Aplicar todas las decoraciones de este color
         editor.setDecorations(decorationType, decorations);
     });
 }
@@ -634,11 +677,15 @@ function saveHighlights() {
         highlightsData.files[relativePath] = fileHighlights;
     });
 
-    fs.writeFileSync(highlightsFilePath, JSON.stringify(highlightsData, null, 2), 'utf8');
+    try {
+        fs.writeFileSync(highlightsFilePath, JSON.stringify(highlightsData, null, 2), 'utf8');
+    } catch (error) {
+        console.error('Error saving highlights:', error);
+    }
 }
 
 /**
- * Loads saved highlights from highlights.json file
+ * Loads saved highlights from highlights.json file and applies them
  * @returns {Promise<void>} Promise that resolves when loading is complete
  */
 function loadSavedHighlights() {
@@ -679,6 +726,14 @@ function loadSavedHighlights() {
                     colorMap.set(color, decorations);
                 });
                 highlightDecorations.set(uri, colorMap);
+                
+                // Aplicar los highlights inmediatamente después de cargarlos
+                const editor = vscode.window.visibleTextEditors.find(
+                    e => e.document.uri.toString() === uri
+                );
+                if (editor && colorsEnabled) {
+                    applyHighlights(editor);
+                }
             });
             resolve();
         } catch (error) {
