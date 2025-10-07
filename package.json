@@ -1,0 +1,216 @@
+{
+    "name": "crab-code-highlighter",
+    "displayName": "Crab Code Highlighter",
+    "description": "Highlight and organize code with customizable colors for architecture planning and module identification",
+    "version": "1.0.1",
+    "publisher": "AmazingCrab",
+    "engines": {
+        "vscode": "^1.60.0"
+    },
+    "categories": [
+        "Other"
+    ],
+    "icon": "icon.png",
+    "activationEvents": [
+        "onCommand:code-highlighter.addHighlight",
+        "onCommand:code-highlighter.clearHighlights",
+        "onCommand:code-highlighter.clearAllHighlights",
+        "onCommand:code-highlighter.reloadHighlights",
+        "onCommand:code-highlighter.showStatus",
+        "onCommand:code-highlighter.showQuickActions",
+        "onStartupFinished"
+    ],
+    "main": "./extension.js",
+    "files": [
+        "extension.js",
+        "icon.png",
+        "LICENSE.md",
+        "README.md"
+    ],
+    "contributes": {
+        "commands": [
+            {
+                "command": "code-highlighter.addHighlight",
+                "title": "Add code highlight",
+                "category": "Code Highlighter"
+            },
+            {
+                "command": "code-highlighter.clearHighlights",
+                "title": "Clear current file code highlights",
+                "category": "Code Highlighter"
+            },
+            {
+                "command": "code-highlighter.clearAllHighlights",
+                "title": "Clear all code highlights",
+                "category": "Code Highlighter"
+            },
+            {
+                "command": "code-highlighter.reloadHighlights",
+                "title": "Reload code highlights from file",
+                "category": "Code Highlighter"
+            },
+            {
+                "command": "code-highlighter.showStatus",
+                "title": "Show code highlights status",
+                "category": "Code Highlighter"
+            },
+            {
+                "command": "code-highlighter.showQuickActions",
+                "title": "Show quick actions menu",
+                "category": "Code Highlighter"
+            }
+        ],
+        "menus": {
+            "command-palette": [
+                {
+                    "command": "code-highlighter.addHighlight",
+                    "when": "editorHasSelection"
+                },
+                {
+                    "command": "code-highlighter.clearHighlights",
+                    "when": "editorTextFocus"
+                },
+                {
+                    "command": "code-highlighter.clearAllHighlights"
+                },
+                {
+                    "command": "code-highlighter.reloadHighlights"
+                },
+                {
+                    "command": "code-highlighter.showStatus"
+                }
+            ],
+            "editor/context": [
+                {
+                    "command": "code-highlighter.addHighlight",
+                    "group": "navigation",
+                    "when": "editorHasSelection"
+                }
+            ]
+        },
+        "configuration": {
+            "title": "Code Highlighter",
+            "properties": {
+                "codeHighlighter.defaultColor": {
+                    "type": "string",
+                    "default": "#00FFAA50",
+                    "description": "Default code highlight color"
+                },
+                "codeHighlighter.saveHighlights": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "Save code highlights to project's highlights.json file"
+                },
+                "codeHighlighter.showStatusBar": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "Show Code Highlighter button in status bar"
+                },
+                "codeHighlighter.saveColorMetadata": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "Save color names and descriptions in highlights.json for better documentation"
+                },
+                "codeHighlighter.customColors": {
+                    "type": "array",
+                    "default": [
+                        {
+                            "name": "Model Layer",
+                            "description": "Data models, entities, DTOs",
+                            "value": "#00FFAA50"
+                        },
+                        {
+                            "name": "View Layer",
+                            "description": "UI components, templates, views",
+                            "value": "#FF00FF50"
+                        },
+                        {
+                            "name": "Controller Layer",
+                            "description": "Request handlers, routing controllers",
+                            "value": "#00FFFF50"
+                        },
+                        {
+                            "name": "Service Layer",
+                            "description": "Business logic, service classes",
+                            "value": "#FFFF0050"
+                        },
+                        {
+                            "name": "Data Access",
+                            "description": "Database queries, repositories, ORM",
+                            "value": "#FF00AA50"
+                        },
+                        {
+                            "name": "API Routes",
+                            "description": "API endpoints, route definitions",
+                            "value": "#00FF0050"
+                        },
+                        {
+                            "name": "Utilities",
+                            "description": "Helper functions, utilities",
+                            "value": "#FF550050"
+                        },
+                        {
+                            "name": "Configuration",
+                            "description": "Config files, settings, constants",
+                            "value": "#AA00FF50"
+                        },
+                        {
+                            "name": "Authentication",
+                            "description": "Auth logic, JWT, sessions, security",
+                            "value": "#FF222250"
+                        },
+                        {
+                            "name": "Testing",
+                            "description": "Test cases, testing code",
+                            "value": "#22FF2250"
+                        }
+                    ],
+                    "description": "Customize code highlights with architecture-focused names and descriptions. Add two digits at the end for transparency (e.g., 50 for 31% opacity).",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "name": {
+                                "type": "string",
+                                "description": "Architecture layer name (e.g., 'Model Layer', 'Service Layer')"
+                            },
+                            "description": {
+                                "type": "string",
+                                "description": "Specific components in this layer (e.g., 'Data models, entities, DTOs')"
+                            },
+                            "value": {
+                                "type": "string",
+                                "description": "Hex color value (e.g., #FF0000). You can add two digits for transparency (e.g., #FF000050)"
+                            }
+                        },
+                        "required": [
+                            "name",
+                            "value"
+                        ]
+                    }
+                }
+            }
+        }
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/AmazingCrab/Extension-for-VsCode-Crab-Code-Highlighter"
+    },
+    "keywords": [
+        "highlight",
+        "highlighter",
+        "code highlighting",
+        "syntax highlighting",
+        "color",
+        "architecture",
+        "modules",
+        "organization",
+        "planning",
+        "crab"
+    ],
+    "license": "SEE LICENSE IN LICENSE.md",
+    "qna": "false",
+    "bugs": {
+        "url": "https://github.com/AmazingCrab/Extension-for-VsCode-Crab-Code-Highlighter/issues"
+    },
+    "homepage": "https://github.com/AmazingCrab/Extension-for-VsCode-Crab-Code-Highlighter#readme"
+}
