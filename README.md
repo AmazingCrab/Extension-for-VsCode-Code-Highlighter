@@ -1,14 +1,15 @@
-# Code Highlighter
+# Crab Code Highlighter
 
 <div align="center">
 
-[![VS Code Marketplace](https://img.shields.io/badge/VS%20Code-Marketplace-blue?style=for-the-badge&logo=visual-studio-code)](https://marketplace.visualstudio.com/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](https://opensource.org/licenses/MIT)
 [![Ko-fi](https://img.shields.io/badge/Ko--fi-Support%20Me-FF5E5B?style=for-the-badge&logo=ko-fi&logoColor=white)](https://ko-fi.com/amazingcrab)
 
 **A powerful Visual Studio Code extension for marking and organizing your code with customizable colors.**
 
 Perfect for architecture planning, module identification, and visual code organization.
+
+Available on **VS Code Marketplace** and **Open VSX Registry**
 
 [Features](#-features) • [Installation](#-getting-started) • [Usage](#-customization) • [Support](#-support-the-project)
 
@@ -20,7 +21,7 @@ Perfect for architecture planning, module identification, and visual code organi
 
 <div align="center">
   <a href="https://www.youtube.com/watch?v=exmPVToYdi4">
-    <img src="https://img.youtube.com/vi/exmPVToYdi4/maxresdefault.jpg" alt="Code Highlighter Demo">
+    <img src="https://img.youtube.com/vi/exmPVToYdi4/maxresdefault.jpg" alt="Crab Code Highlighter Demo">
     <br>
     <img src="https://img.shields.io/badge/▶_WATCH_DEMO-FF0000?style=for-the-badge&logoColor=white" alt="Play Button">
   </a>
@@ -65,18 +66,30 @@ Perfect for architecture planning, module identification, and visual code organi
 - Works seamlessly with large codebases
 
 ### 🔗 Integration Ready
-Works complementarily with [Modules From Colors](https://github.com/AmazingCrab/Modules-From-Colors-Extension-for-VsCode) - generate code modules and architecture from your color-coded sections!
+Works complementarily with [Crab Modules For Code Highlighter](https://github.com/AmazingCrab/Extension-for-VsCode-Crab-Modules-for-Code-Highlighter) - generate code modules and architecture from your color-coded sections!
 
 ---
 
 ## 🚀 Getting Started
 
 ### Installation
+
+**Option 1: VS Code Marketplace**
 1. Open VS Code
 2. Go to Extensions (`Ctrl+Shift+X` or `Cmd+Shift+X`)
-3. Search for **"Code Highlighter"**
+3. Search for **"Crab Code Highlighter"**
 4. Click **Install**
-5. Start highlighting! 🎨
+
+**Option 2: Open VSX Registry**
+1. Search for **"Crab Code Highlighter"** in Open VSX Registry
+2. Follow the installation instructions for your IDE
+
+**Option 3: Manual Installation**
+1. Download the `.vsix` file from the [GitHub repository](https://github.com/AmazingCrab/Extension-for-VsCode-Crab-Code-Highlighter)
+2. Open VS Code
+3. Go to Extensions
+4. Click on the "..." menu → Install from VSIX
+5. Select the downloaded file
 
 ### Basic Usage
 
@@ -134,13 +147,13 @@ There are **four ways** to remove highlights:
 
 You can customize all colors, names, and descriptions in your VS Code settings:
 
-**File** → **Preferences** → **Settings** → Search for **"Code Highlighter"**
+**File** → **Preferences** → **Settings** → Search for **"Crab Code Highlighter"**
 
 Or edit your `settings.json`:
 
 ```json
 {
-  "codeHighlighter.customColors": [
+  "crabCodeHighlighter.customColors": [
     {
       "name": "Authentication Module",
       "description": "User login, JWT tokens, OAuth integration",
@@ -174,11 +187,11 @@ Or edit your `settings.json`:
 
 | Setting | Type | Default | Description |
 |---------|------|---------|-------------|
-| `codeHighlighter.defaultColor` | string | `#4A90E240` | Default highlight color |
-| `codeHighlighter.saveHighlights` | boolean | `true` | Save highlights to highlights.json |
-| `codeHighlighter.showStatusBar` | boolean | `true` | Show toggle button in status bar |
-| `codeHighlighter.saveColorMetadata` | boolean | `true` | Save color names and descriptions |
-| `codeHighlighter.customColors` | array | (see above) | Custom color definitions |
+| `CodeHighlighter.defaultColor` | string | `#4A90E240` | Default highlight color |
+| `CodeHighlighter.saveHighlights` | boolean | `true` | Save highlights to highlights.json |
+| `CodeHighlighter.showStatusBar` | boolean | `true` | Show toggle button in status bar |
+| `CodeHighlighter.saveColorMetadata` | boolean | `true` | Save color names and descriptions |
+| `CodeHighlighter.customColors` | array | (see above) | Custom color definitions |
 
 ---
 
@@ -225,7 +238,7 @@ Add custom keybindings in your `keybindings.json`:
 
 ---
 
-## 📁 highlights.json Structure
+## 📄 highlights.json Structure
 
 The extension creates a `highlights.json` file in your workspace root:
 
@@ -269,10 +282,10 @@ This file can be:
 
 ## 💡 Use Cases
 
-### 🏗️ Architecture Planning
+### 🗝️ Architecture Planning
 Mark different architectural layers (MVC, layered architecture, clean architecture) with distinct colors.
 
-### 🔍 Code Review
+### 📋 Code Review
 Highlight areas that need attention, refactoring, or special review.
 
 ### 📚 Learning & Documentation
@@ -288,7 +301,7 @@ Mark code sections that belong to different target modules during large refactor
 
 ## 💖 Support the Project
 
-If **Code Highlighter** helps you work better, consider supporting its development:
+If **Crab Code Highlighter** helps you work better, consider supporting its development:
 
 <div align="center">
 
@@ -302,7 +315,7 @@ If **Code Highlighter** helps you work better, consider supporting its developme
 - 🐛 **Report bugs** - Help improve the extension
 - 💡 **Suggest features** - Share your ideas
 - 📢 **Share with your team** - Spread the word
-- ✍️ **Write a review** - Share your experience on VS Code Marketplace
+- ✍️ **Write a review** - Share your experience on VS Code Marketplace or Open VSX Registry
 
 Your support helps me dedicate more time to developing features, fixing bugs, and maintaining this project. Every contribution, big or small, is greatly appreciated! 🙏
 
@@ -323,16 +336,17 @@ Your support helps me dedicate more time to developing features, fixing bugs, an
 
 ---
 
-## 🔄 Related Extension
+## 📦 Related Extension
 
-**[Modules From Colors](https://github.com/AmazingCrab/Modules-From-Colors-Extension-for-VsCode)**  
-Generate code modules and architecture from your color-coded sections. The perfect companion for Code Highlighter!
+**[Crab Modules For Code Highlighter](https://github.com/AmazingCrab/Extension-for-VsCode-Crab-Modules-for-Code-Highlighter)**  
+Generate code modules and architecture from your color-coded sections. The perfect companion for Crab Code Highlighter!
 
 ---
 
 ## 📝 Release Notes
 
-### 1.0.0 (Initial Release)
+### 1.0.1 Version
+- 🎨 Colors has been improved, now they are more bright and have selection borders
 - ✨ Architecture-focused color presets
 - 💾 Automatic persistence with highlights.json
 - 🔘 Status bar toggle for quick enable/disable
@@ -346,7 +360,7 @@ Generate code modules and architecture from your color-coded sections. The perfe
 ## 🤝 Contributing
 
 Found a bug or have a feature request?  
-**Open an issue**: [Code Highlighter Issues](https://github.com/AmazingCrab/Extension-for-VsCode-Code-Highlighter/issues)
+**Open an issue**: [Crab Code Highlighter Issues](https://github.com/AmazingCrab/Extension-for-VsCode-Crab-Code-Highlighter/issues)
 
 Want to contribute code?
 1. Fork the repository
@@ -360,7 +374,7 @@ Want to contribute code?
 ## 📧 Contact
 
 **Developer**: Emanuel Conte (AmazingCrab)  
-**Email**: emanuel.conte.work@gmail.com  
+**Email**: amazingcrab@proton.me  
 **Ko-fi**: [ko-fi.com/amazingcrab](https://ko-fi.com/amazingcrab)
 
 Want to collaborate or chat about the extension? Feel free to reach out!
@@ -369,9 +383,10 @@ Want to collaborate or chat about the extension? Feel free to reach out!
 
 ## 🔗 Links
 
-- **Repository**: [github.com/AmazingCrab/Extension-for-VsCode-Code-Highlighter](https://github.com/AmazingCrab/Extension-for-VsCode-Code-Highlighter)
-- **VS Code Marketplace**: (Add your link after publishing)
-- **Report Issues**: [GitHub Issues](https://github.com/AmazingCrab/Extension-for-VsCode-Code-Highlighter/issues)
+- **Repository**: [github.com/AmazingCrab/Extension-for-VsCode-Crab-Code-Highlighter](https://github.com/AmazingCrab/Extension-for-VsCode-Crab-Code-Highlighter)
+- **VS Code Marketplace**: Search for "Crab Code Highlighter"
+- **Open VSX Registry**: Search for "Crab Code Highlighter"
+- **Report Issues**: [GitHub Issues](https://github.com/AmazingCrab/Extension-for-VsCode-Crab-Code-Highlighter/issues)
 - **Support**: [Ko-fi](https://ko-fi.com/amazingcrab)
 
 ---
@@ -391,7 +406,7 @@ MIT License - Copyright (c) 2025 Emanuel Conte (AmazingCrab)
 If you find this extension helpful:
 - ⭐ **Star the repository** on GitHub
 - ☕ **[Buy me a coffee](https://ko-fi.com/amazingcrab)** on Ko-fi
-- 📝 **Leave a review** on the VS Code Marketplace
+- 📝 **Leave a review** on VS Code Marketplace or Open VSX Registry
 - 🐛 **Report bugs** or suggest features
 - 📢 **Share** with your developer friends!
 
